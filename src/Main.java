@@ -1,5 +1,4 @@
-package audio_editor;
-
+import audio_editor.Wave;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -12,7 +11,7 @@ public class Main {
 //        change_duration_in_integer_times();
 //        write_to_wav();
         byte[] audioBytes = convert_to_byte_array();
-        Wave s = new Wave(audioBytes);
+        Wave s = new Wave();
 
     }
 
