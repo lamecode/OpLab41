@@ -3,44 +3,138 @@ package audio_editor;
 public class Wave {
 
     //    RiftHeader
-    private int CHUNK_ID;
+    private int chunkId;
     private int chunkSize;
-    private int FORMAT;
+    private int format;
 
     //    Subchunk1
-    private int SUBCHUNK1_ID;
-    private int SUBCHUNK1_SIZE;
-    private int AUDIO_FORMAT;
-    private int numChannels;   // Mono = 1, Stereo = 2
-    private int sampleRate;    // Наприклад 44100
+    private int subchunk1Id;
+    private int subchunk1Size;
+    private int audioFormat;
+    private int numChannels;
+    private int sampleRate;
     private int byteRate;
     private int blockAlign;
-    private int bitsPerSample; // 8 bits = 8, 16 bits = 16, etc.
-
+    private int bitsPerSample;
 
     //    Subchunk2
-    private int SUBCHUNK2_ID;
-    private int subchunk2Size; // == NumSamples * NumChannels * BitsPerSample/8, кількість байтів аудіоданих
+    private int subchunk2Id;
+    private int subchunk2Size;
     private byte[] data;
 
 
-    public Wave(byte[] data) {
-        CHUNK_ID = byteArrayToInt(data,0, 4);
-        /*byteRate = sampleRate * numChannels * bitsPerSample / 8;
-        blockAlign = numChannels * bitsPerSample / 8;*/
-        this.data = data;
-        /*int numSamples = duration * sampleRate;
-        subchunk2Size = numSamples * numChannels * bitsPerSample/8;
-        chunkSize = 36 + subchunk2Size;*/
+    public int getChunkId() {
+        return chunkId;
     }
 
-    public static int byteArrayToInt(byte[] b, int start, int end) {
-        int value = 0;
-        for (int i = start; i < end; i++) {
-            int shift = (end - 1 - i) * 8;
-            value += (b[i] & 0x000000FF) << shift;
-        }
-        return value;
+    public void setChunkId(int chunkId) {
+        this.chunkId = chunkId;
     }
+
+    public int getChunkSize() {
+        return chunkSize;
+    }
+
+    public void setChunkSize(int chunkSize) {
+        this.chunkSize = chunkSize;
+    }
+
+    public int getFormat() {
+        return format;
+    }
+
+    public void setFormat(int format) {
+        this.format = format;
+    }
+
+    public int getSubchunk1Id() {
+        return subchunk1Id;
+    }
+
+    public void setSubchunk1Id(int subchunk1Id) {
+        this.subchunk1Id = subchunk1Id;
+    }
+
+    public int getSubchunk1Size() {
+        return subchunk1Size;
+    }
+
+    public void setSubchunk1Size(int subchunk1Size) {
+        this.subchunk1Size = subchunk1Size;
+    }
+
+    public int getAudioFormat() {
+        return audioFormat;
+    }
+
+    public void setAudioFormat(int audioFormat) {
+        this.audioFormat = audioFormat;
+    }
+
+    public int getNumChannels() {
+        return numChannels;
+    }
+
+    public void setNumChannels(int numChannels) {
+        this.numChannels = numChannels;
+    }
+
+    public int getSampleRate() {
+        return sampleRate;
+    }
+
+    public void setSampleRate(int sampleRate) {
+        this.sampleRate = sampleRate;
+    }
+
+    public int getByteRate() {
+        return byteRate;
+    }
+
+    public void setByteRate(int byteRate) {
+        this.byteRate = byteRate;
+    }
+
+    public int getBlockAlign() {
+        return blockAlign;
+    }
+
+    public void setBlockAlign(int blockAlign) {
+        this.blockAlign = blockAlign;
+    }
+
+    public int getBitsPerSample() {
+        return bitsPerSample;
+    }
+
+    public void setBitsPerSample(int bitsPerSample) {
+        this.bitsPerSample = bitsPerSample;
+    }
+
+    public int getSubchunk2Id() {
+        return subchunk2Id;
+    }
+
+    public void setSubchunk2Id(int subchunk2Id) {
+        this.subchunk2Id = subchunk2Id;
+    }
+
+    public int getSubchunk2Size() {
+        return subchunk2Size;
+    }
+
+    public void setSubchunk2Size(int subchunk2Size) {
+        this.subchunk2Size = subchunk2Size;
+    }
+
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
+    }
+
+
 
 }
