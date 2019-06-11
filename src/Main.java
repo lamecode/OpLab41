@@ -43,7 +43,6 @@ public class Main {
 
     private static void multiplyWave(Wave wave, int times) {
         byte[] data = wave.getData();
-        byte[] multipliedData = getMultipliedData(wave, times);
         wave.setData(data);
 //        wave.setSubchunk2Size(wave.getSubchunk2Size() * times);
         wave.setSampleRate(wave.getSampleRate() / times);
