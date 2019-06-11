@@ -1,7 +1,6 @@
 package audio_editor;
 
 public class WaveReader {
-
     public static Wave readFromByteArray(byte[] buffer) {
         Wave wave = new Wave();
         setAttributes(wave, buffer);
@@ -28,10 +27,37 @@ public class WaveReader {
     private static int byteArrayToInt(byte[] byteArray, int start, int length) {
         int value = 0;
         int end = start + length;
-        for (int i = start; i < end; i++) {
-            int shift = (end - 1 - i) * 8;
-            value += (byteArray[i] & 0x000000FF) << shift;
+        if (start == 24) {
+            byte[] reverse = new byte[length];
+            for (int i = 0; i < length; i++) {
+                reverse[length - i - 1] = byteArray[start + i];
+            }
+            for (int i = 0; i < length; i++) {
+                int shift = (end - 1 - i) * 8;
+                value += (reverse[i] & 0x000000FF) << shift;
+            }
+        } else {
+            for (int i = start; i < end; i++) {
+                int shift = (end - 1 - i) * 8;
+                value += (byteArray[i] & 0x000000FF) << shift;
+            }
         }
+        //tried to differenciate big- and little- endians. Didn't work
+        /*byte[] reverse = new byte[length];
+        if (e[order]) {
+            for (int i = start; i < end; i++) {
+                int shift = (end - 1 - i) * 8;
+                value += (byteArray[i] & 0x000000FF) << shift;
+            }
+        } else {
+            for (int i = 0; i < length; i++) {
+                reverse[length - i - 1] = byteArray[start + i];
+            }
+            for (int i = 0; i < length; i++) {
+                int shift = (end - 1 - i) * 8;
+                value += (reverse[i] & 0x000000FF) << shift;
+            }
+        }*/
         return value;
     }
 
@@ -40,6 +66,7 @@ public class WaveReader {
         byte[] data = new byte[dataLength];
         System.arraycopy(buffer, 44, data, 0, dataLength);
         return data;
+
     }
 
 

@@ -2,18 +2,17 @@ import audio_editor.Wave;
 import audio_editor.WaveReader;
 import audio_editor.WaveWritter;
 
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
     private static final String INPUT_FILE = "Game of Thrones.wav";
-    private static final String OUTPUT_FILE = "NewOne.wav";
+    private static final String OUTPUT_FILE = "NewOne1.wav";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         byte[] fileBytesArr = readBytesFromFile(Paths.get(INPUT_FILE));
         Wave wave = WaveReader.readFromByteArray(fileBytesArr);
         multiplyWave(wave, getIntFromUser());
@@ -43,9 +42,11 @@ public class Main {
     }
 
     private static void multiplyWave(Wave wave, int times) {
+        byte[] data = wave.getData();
         byte[] multipliedData = getMultipliedData(wave, times);
-        wave.setData(multipliedData);
-        wave.setSubchunk2Size(wave.getSubchunk2Size() * times);
+        wave.setData(data);
+//        wave.setSubchunk2Size(wave.getSubchunk2Size() * times);
+        wave.setSampleRate(wave.getSampleRate() / times);
     }
 
     private static byte[] getMultipliedData(Wave wave, int times) {
@@ -53,9 +54,6 @@ public class Main {
         byte[] multipliedData = new byte[data.length * times];
         for (int i = 0; i < data.length; i++) {
             for (int j = 0; j < times; j++) {
-                if (data[i] < 0) {
-                    multipliedData[i * times + j] = data[i];
-                }
                 multipliedData[i * times + j] = data[i];
             }
 

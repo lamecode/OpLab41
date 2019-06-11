@@ -135,6 +135,4 @@ public class Wave {
         this.data = data;
     }
 
-
-
 }

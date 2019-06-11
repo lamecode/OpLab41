@@ -16,7 +16,13 @@ public class WaveWritter {
         byte[] subchunk1SizeBytes = intToByteArray(wave.getSubchunk1Size(), 4);
         byte[] audioFormatBytes = intToByteArray(wave.getAudioFormat(), 2);
         byte[] numChannelsBytes = intToByteArray(wave.getNumChannels(), 2);
-        byte[] sampleRateBytes = intToByteArray(wave.getSampleRate(), 4);
+        byte[] sampleRateBytes = reverse(intToByteArray(wave.getSampleRate(), 4));
+       /* byte[] sampleRateBytes2 = new byte[sampleRateBytes.length];
+        int j = 4;
+        for (int i = 0; i < 4; i++) {
+            sampleRateBytes2[j - 1] = sampleRateBytes[i];
+            j = j - 1;
+        }*/
         byte[] byteRateBytes = intToByteArray(wave.getByteRate(), 4);
         byte[] blockAlignBytes = intToByteArray(wave.getBlockAlign(), 2);
         byte[] bitsPerSampleBytes = intToByteArray(wave.getBitsPerSample(), 2);
@@ -47,6 +53,14 @@ public class WaveWritter {
             default:
                 throw new RuntimeException("invalid byte array size");
         }
+    }
+
+    private static byte[] reverse(byte[] b) {
+        byte[] reversed = new byte[b.length];
+        for (int i = 0; i < b.length; i++) {
+            reversed[b.length - 1 - i] = b[i];
+        }
+        return reversed;
     }
 
 }
